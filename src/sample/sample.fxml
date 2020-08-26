@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Pane prefHeight="508.0" prefWidth="549.0">
+         <children>
+            <LineChart id="chart" fx:id="chart" layoutX="3.0" layoutY="6.0" prefHeight="400.0" prefWidth="541.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+            <Label id="temp" layoutX="39.0" layoutY="406.0" text="Temp" />
+            <Label id="dato" layoutX="39.0" layoutY="447.0" text="Dato" />
+            <Label id="luft" layoutX="221.0" layoutY="406.0" text="Luft" />
+         </children></Pane>
+   </children>
+</GridPane>
