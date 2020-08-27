@@ -10,6 +10,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        Klient klient = new Klient();
+        klient.recieveData();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sample.fxml"));
         Parent mineForloebParent = (Parent) fxmlLoader.load();
         Controller controller = fxmlLoader.getController();
