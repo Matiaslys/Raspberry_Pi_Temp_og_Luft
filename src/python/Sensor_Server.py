@@ -19,5 +19,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print('Connected by', addr)
         conn.sendall(humidity)
         conn.sendall(temperature)
+        print(humidity)
+        print(temperature)
         
             
