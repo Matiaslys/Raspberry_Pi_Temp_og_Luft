@@ -1,7 +1,7 @@
 import socket
 import Adafruit_DHT
 
-HOST = '127.0.0.1'
+HOST = '192.168.43.125'
 PORT = 8000
 gpio=17
 
@@ -11,8 +11,6 @@ if humidity is not None and temperature is not None:
 else:
   print('Failed to get reading. Try again!')
 
-humidity = 12
-temperature = 15
 humidity2 = str(humidity).encode("utf-8")
 temperature2 = str(temperature).encode("utf-8")
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
