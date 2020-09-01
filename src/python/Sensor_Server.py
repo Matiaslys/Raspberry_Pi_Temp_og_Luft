@@ -3,7 +3,7 @@ import Adafruit_DHT
 
 HOST = '192.168.43.125'
 PORT = 8000
-gpio=17
+gpio=22
 
 humidity, temperature = Adafruit_DHT.read_retry(11, gpio)
 if humidity is not None and temperature is not None:
