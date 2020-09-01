@@ -22,9 +22,9 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </LineChart>
-            <Label id="temp" layoutX="39.0" layoutY="406.0" text="Temp" />
-            <Label id="dato" layoutX="39.0" layoutY="447.0" text="Dato" />
-            <Label id="luft" layoutX="221.0" layoutY="406.0" text="Luft" />
+            <Label id="temp" fx:id="temp" layoutX="39.0" layoutY="406.0" text="Temp" />
+            <Label id="dato" fx:id="dato" layoutX="39.0" layoutY="447.0" text="Dato" />
+            <Label id="luft" fx:id="luft" layoutX="221.0" layoutY="406.0" text="Luft" />
          </children></Pane>
    </children>
 </GridPane>
