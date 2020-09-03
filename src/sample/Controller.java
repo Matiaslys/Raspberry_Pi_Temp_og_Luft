@@ -8,13 +8,18 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Controller{
+public class Controller {
+
     @FXML
-    private LineChart<String, Number> chart;
+    private LineChart<Number, Number> tempchart;
+
+    @FXML
+    private LineChart<Number, Number> humchart;
 
     @FXML
     private Label temp;
@@ -25,10 +30,17 @@ public class Controller{
     @FXML
     private Label dato;
 
-    private XYChart.Series<String, Number> series;
+    private XYChart.Series<Number, Number> tempChartSeries;
+    private XYChart.Series<Number, Number> humChartSeries;
+
 
     public void Chart(SensorData sensorData) throws IOException {
-
+        tempChartSeries = new XYChart.Series<Number, Number>();
+        humChartSeries = new XYChart.Series<Number, Number>();
+        tempChartSeries.setName("Temperatur");
+        humChartSeries.setName("Luftfugtighed");
+        tempchart.getData().add(tempChartSeries);
+        humchart.getData().add(humChartSeries);
         sensorData.addObserver(new Observer() {
             @Override
             public void update(Observable o, Object arg) {
@@ -46,13 +58,13 @@ public class Controller{
 
     private void InsertTempAndHum(SensorData sensorData) {
         try {
+            LocalTime localTime = LocalTime.now();
+            double time = (double) localTime.getMinute();
             LocalDateTime myDateObj = LocalDateTime.now();
             DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             String formattedDate = myDateObj.format(myFormatObj);
-            series = new XYChart.Series<String, Number>();
-            series.getData().add(new XYChart.Data<String, Number>("Temp", sensorData.getTemp()));
-            series.getData().add(new XYChart.Data<String, Number>("hum", sensorData.getHum()));
-            chart.getData().add(series);
+            tempChartSeries.getData().add(new XYChart.Data<Number, Number>(time, sensorData.getTemp()));
+            humChartSeries.getData().add(new XYChart.Data<Number, Number>(time, sensorData.getHum()));
             dato.setText("Tidspunkt for sidste aflæsning " + formattedDate);
             temp.setText("Temperaturen er: " + sensorData.getTemp());
             luft.setText("Luftfugtigheden er: " + sensorData.getHum());

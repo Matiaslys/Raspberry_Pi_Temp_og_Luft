@@ -4,10 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.XYDataset;
 
 public class Main extends Application {
 
@@ -19,7 +17,7 @@ public class Main extends Application {
         Controller controller = fxmlLoader.getController();
         controller.Chart(sensorData);
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(mineForloebParent, 550, 600));
+        primaryStage.setScene(new Scene(mineForloebParent, 1100, 600));
         primaryStage.show();
     }
 
