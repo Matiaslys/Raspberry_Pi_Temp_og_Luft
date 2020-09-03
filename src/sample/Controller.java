@@ -28,6 +28,7 @@ public class Controller{
     private XYChart.Series<String, Number> series;
 
     public void Chart(SensorData sensorData) throws IOException {
+
         sensorData.addObserver(new Observer() {
             @Override
             public void update(Observable o, Object arg) {
