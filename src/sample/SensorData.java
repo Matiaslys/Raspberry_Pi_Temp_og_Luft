@@ -14,7 +14,6 @@ public class SensorData extends Observable {
         this.temp = temp;
             setChanged();
             notifyObservers(temp);
-//        System.out.println(temp);
     }
 
     public double getHum() {
@@ -25,6 +24,5 @@ public class SensorData extends Observable {
         this.hum = hum;
             setChanged();
             notifyObservers(hum);
-//        System.out.println(hum);
     }
 }

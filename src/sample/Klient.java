@@ -8,11 +8,10 @@ import java.net.Socket;
 public class Klient {
     private double temp;
     private double hum;
-    public void recieveData() throws IOException {
+    public void recieveData(SensorData sensorData) throws IOException {
         new Thread(new Runnable() {
             Socket socket = new Socket("localhost", 8000);
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            SensorData sensorData = new SensorData();
             @Override
             public void run() {
                 try {
