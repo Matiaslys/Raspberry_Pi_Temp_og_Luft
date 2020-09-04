@@ -3,7 +3,7 @@ import threading
 import time
 import Adafruit_DHT
 
-HOST = '127.0.0.1'
+HOST = '192.168.43.125'
 PORT = 8000
 gpio=22
 
@@ -38,7 +38,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity))
         else:
             print('Failed to get reading. Try again!')
-            
+
             time.sleep(delay)
             count += 1
             humidity = 15 + count
