@@ -3,6 +3,7 @@ import threading
 import time
 import Adafruit_DHT
 
+
 HOST = '192.168.43.125'
 PORT = 8000
 gpio=22
