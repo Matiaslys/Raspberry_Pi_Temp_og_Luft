@@ -59,7 +59,7 @@ public class Controller {
     private void InsertTempAndHum(SensorData sensorData) {
         try {
             LocalTime localTime = LocalTime.now();
-            double time = (double) localTime.getMinute();
+            double time = (double) localTime.getSecond();
             LocalDateTime myDateObj = LocalDateTime.now();
             DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
             String formattedDate = myDateObj.format(myFormatObj);
