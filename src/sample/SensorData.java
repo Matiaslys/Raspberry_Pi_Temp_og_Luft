@@ -3,6 +3,7 @@ package sample;
 import java.util.Observable;
 
 public class SensorData extends Observable {
+    // dette er vores sensordata klasse hvor vi bruger gætter og setter samt observers til at håndtere den information vi får fra python serveren
     private double temp;
     private double hum;
 
