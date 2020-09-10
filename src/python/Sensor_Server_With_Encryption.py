@@ -25,6 +25,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         count = 0
         ciphertext = obj.encrypt(temperature)
         ciphertext2 = obj.encrypt(humidity)
+        ciphertext
+        ciphertext2
         humidity2 = str(ciphertext2).encode("utf-8")
         temperature2 = str(ciphertext).encode("utf-8")
         conn.send(humidity2)
