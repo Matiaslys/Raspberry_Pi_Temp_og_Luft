@@ -42,13 +42,13 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             else:
                 print('Failed to get reading. Try again!')
             count += 1
-            ciphertext = obj.encrypt(temperature)
-            ciphertext2 = obj.encrypt(humidity)
             humidity2 = str(ciphertext2).encode("utf-8")
             temperature2 = str(ciphertext).encode("utf-8")
-            conn.send(humidity2)
+            ciphertext = obj.encrypt(humidity2)
+            ciphertext2 = obj.encrypt(temperature2)
+            conn.send(ciphertext)
             conn.send('\n'.encode("utf-8"))
-            conn.send(temperature2)
+            conn.send(ciphertext2)
             conn.send('\n'.encode("utf-8"))
             print(humidity)
             print(temperature)
