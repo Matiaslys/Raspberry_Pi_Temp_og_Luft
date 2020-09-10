@@ -23,8 +23,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print('Failed to get reading. Try again!')
         print('Connected by', addr)
         count = 0
-        ciphertext = obj.encrypt(temperature)
-        ciphertext2 = obj.encrypt(humidity)
+        ciphertext = obj.encrypt(temperature).encode("utf-8")
+        ciphertext2 = obj.encrypt(humidity).encode("utf-8")
         ciphertext
         ciphertext2
         humidity2 = str(ciphertext2).encode("utf-8")
