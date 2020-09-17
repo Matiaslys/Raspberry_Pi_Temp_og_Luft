@@ -29,8 +29,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print('Connected by', addr)
         count = 0
 
-        humidity2 = str(humidity).encode("utf-8")
-        temperature2 = str(temperature).encode("utf-8")
+        humidity2 = str(humidity).encode("UTF-8")
+        temperature2 = str(temperature).encode("UTF-8")
 
         padded = pad(humidity2)
         padded = pad(temperature2)
@@ -40,9 +40,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         ciphertext2 = obj.encrypt(padded)
         print(ciphertext2)
         conn.send(ciphertext)
-        conn.send('\n'.encode("utf-8"))
+        conn.send('\n'.encode("UTF-8"))
         conn.send(ciphertext2)
-        conn.send('\n'.encode("utf-8"))
+        conn.send('\n'.encode("UTF-8"))
         print(humidity)
         print(temperature)
         
@@ -54,14 +54,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             else:
                 print('Failed to get reading. Try again!')
             count += 1
-            humidity2 = str(ciphertext2).encode("utf-8")
-            temperature2 = str(ciphertext).encode("utf-8")
+            humidity2 = str(ciphertext2).encode("UTF-8")
+            temperature2 = str(ciphertext).encode("UTF-8")
             ciphertext = obj.encrypt(humidity2)
             ciphertext2 = obj.encrypt(temperature2)
             conn.send(ciphertext)
-            conn.send('\n'.encode("utf-8"))
+            conn.send('\n'.encode("UTF-8"))
             conn.send(ciphertext2)
-            conn.send('\n'.encode("utf-8"))
+            conn.send('\n'.encode("UTF-8"))
             print(humidity)
             print(temperature)
         
