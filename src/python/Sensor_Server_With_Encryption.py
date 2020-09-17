@@ -1,7 +1,6 @@
 import socket
 import threading
 import time
-import base64
 from Crypto.Cipher import AES
 import Adafruit_DHT
 
@@ -16,11 +15,26 @@ def pad(byte_array):
     pad_len = BLOCK_SIZE - len(byte_array) % BLOCK_SIZE
     return byte_array + (bytes([pad_len]) * pad_len)
 
+def encrypt(message):
+    obj = AES.new('This is a key123', AES.MODE_CFB, 'This is an IV456')
+
+    humidity2 = str(humidity).encode("UTF-8")
+    temperature2 = str(temperature).encode("UTF-8")
+
+    padded = pad(humidity2)
+    padded = pad(temperature2)
+
+    message = obj.encrypt(padded)
+    print(message)
+    return message
+
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
     s.listen()
     conn, addr = s.accept()
+
     with conn:
+        obj = AES.new('This is a key123', AES.MODE_CFB, 'This is an IV456')
         humidity, temperature = Adafruit_DHT.read_retry(11, gpio)
         if humidity is not None and temperature is not None:
             print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity))
@@ -29,24 +43,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print('Connected by', addr)
         count = 0
 
-        humidity2 = str(humidity).encode("UTF-8")
-        temperature2 = str(temperature).encode("UTF-8")
 
-        padded = pad(humidity2)
-        padded = pad(temperature2)
-
-        obj = AES.new('This is a key123', AES.MODE_CFB, 'This is an IV456')
-        ciphertext = obj.encrypt(padded)
-        print(ciphertext)
-        encryptedstr = base64.b64encode('This is an IV456'+ciphertext).decode("UTF-8")
-        print(ciphertext)
-        ciphertext2 = obj.encrypt(padded)
-        print(ciphertext2)
-        encryptedstr2 = base64.b64encode('This is an IV456'+ciphertext2).decode("UTF-8")
-        print(ciphertext2)
-        conn.send(encryptedstr.encode('utf-8'))
+        conn.send(encrypt(temperature))
         conn.send('\n'.encode("UTF-8"))
-        conn.send(encryptedstr2.encode('utf-8'))
+        conn.send(encrypt(humidity))
         conn.send('\n'.encode("UTF-8"))
         print(humidity)
         print(temperature)
@@ -59,13 +59,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             else:
                 print('Failed to get reading. Try again!')
             count += 1
-            humidity2 = str(ciphertext2).encode("UTF-8")
-            temperature2 = str(ciphertext).encode("UTF-8")
-            ciphertext = obj.encrypt(humidity2)
-            ciphertext2 = obj.encrypt(temperature2)
-            conn.send(ciphertext)
+            conn.send(encrypt(temperature))
             conn.send('\n'.encode("UTF-8"))
-            conn.send(ciphertext2)
+            conn.send(encrypt(humidity))
             conn.send('\n'.encode("UTF-8"))
             print(humidity)
             print(temperature)
