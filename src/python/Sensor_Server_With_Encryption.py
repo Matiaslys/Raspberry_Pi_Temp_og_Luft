@@ -20,7 +20,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.listen()
     conn, addr = s.accept()
     with conn:
-        obj = AES.new('This is a key123', AES.MODE_CFB, 'This is an IV456')
         humidity, temperature = Adafruit_DHT.read_retry(11, gpio)
         if humidity is not None and temperature is not None:
             print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity))
@@ -35,13 +34,18 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         padded = pad(humidity2)
         padded = pad(temperature2)
 
+        obj = AES.new('This is a key123', AES.MODE_CFB, 'This is an IV456')
         ciphertext = obj.encrypt(padded)
+        print(ciphertext)
+        base64.b64encode('This is an IV456'+ciphertext).decode("UTF-8")
         print(ciphertext)
         ciphertext2 = obj.encrypt(padded)
         print(ciphertext2)
-        conn.send(ciphertext.encode("UTF-8"))
+        base64.b64encode('This is an IV456'+ciphertext2).decode("UTF-8")
+        print(ciphertext2)
+        conn.send(ciphertext)
         conn.send('\n'.encode("UTF-8"))
-        conn.send(ciphertext2.encode("UTF-8"))
+        conn.send(ciphertext2)
         conn.send('\n'.encode("UTF-8"))
         print(humidity)
         print(temperature)
