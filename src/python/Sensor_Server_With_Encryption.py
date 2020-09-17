@@ -6,9 +6,14 @@ import Adafruit_DHT
 
 HOST = '192.168.43.125'
 PORT = 8000
-gpio=22
+gpio = 22
 
 delay = 2
+
+def pad(byte_array):
+    BLOCK_SIZE = 16
+    pad_len = BLOCK_SIZE - len(byte_array) % BLOCK_SIZE
+    return byte_array + (bytes([pad_len]) * pad_len)
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
@@ -23,11 +28,16 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print('Failed to get reading. Try again!')
         print('Connected by', addr)
         count = 0
-        humidity2 = str(humidity).encode("utf-8")
-        temperature2 = str(temperature).encode("utf-8")
-        ciphertext = obj.encrypt(humidity2)
+
+        humidity2 = humidity.encode("utf-8")
+        temperature2 = temperature.encode("utf-8")
+
+        padded = pad(humidity2)
+        padded = pad(temperature2)
+
+        ciphertext = obj.encrypt(padded)
         print(ciphertext)
-        ciphertext2 = obj.encrypt(temperature2)
+        ciphertext2 = obj.encrypt(padded)
         print(ciphertext2)
         conn.send(ciphertext)
         conn.send('\n'.encode("utf-8"))
