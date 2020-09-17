@@ -29,8 +29,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print('Connected by', addr)
         count = 0
 
-        humidity2 = humidity.encode("utf-8")
-        temperature2 = temperature.encode("utf-8")
+        humidity2 = str(humidity).encode("utf-8")
+        temperature2 = str(temperature).encode("utf-8")
 
         padded = pad(humidity2)
         padded = pad(temperature2)
