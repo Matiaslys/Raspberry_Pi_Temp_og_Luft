@@ -1,6 +1,7 @@
 import socket
 import threading
 import time
+import base64
 from Crypto.Cipher import AES
 import Adafruit_DHT
 
@@ -16,17 +17,24 @@ def pad(byte_array):
     return byte_array + (bytes([pad_len]) * pad_len)
 
 def encrypt(message):
+
+    byte_array = message.encode("UTF-8")
+
+    padded = pad(byte_array)
+
     obj = AES.new('This is a key123', AES.MODE_CFB, 'This is an IV456')
 
-    humidity2 = str(humidity).encode("UTF-8")
-    temperature2 = str(temperature).encode("UTF-8")
+    
+  #  humidity2 = str(humidity).encode("UTF-8")
+   # temperature2 = str(temperature).encode("UTF-8")
 
-    padded = pad(humidity2)
-    padded = pad(temperature2)
+    #padded = pad(humidity2)
+    #padded = pad(temperature2)
 
+    encrypted = obj.encrypt(padded)
     message = obj.encrypt(padded)
     print(message)
-    return message
+    return base64.b64encode('This is an IV456'+encrypted).decode("UTF-8")
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
