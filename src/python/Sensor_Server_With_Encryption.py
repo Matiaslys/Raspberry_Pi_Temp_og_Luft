@@ -52,9 +52,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         count = 0
         encryptedStr = encrypt(str(temperature))
         print(encryptedStr)
+        encryptedStr2 = encrypt(str(humidity))
+        print(encryptedStr2)
         conn.send(encryptedStr.encode("UTF-8"))
         conn.send('\n'.encode("UTF-8"))
-        conn.send(encrypt(str(humidity.encode("UTF-8"))))
+        conn.send(encryptedStr2.encode("UTF-8"))
         conn.send('\n'.encode("UTF-8"))
         print(humidity)
         print(temperature)
@@ -67,9 +69,13 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             else:
                 print('Failed to get reading. Try again!')
             count += 1
-            conn.send(encrypt(str(temperature)))
+            encryptedStr = encrypt(str(temperature))
+            print(encryptedStr)
+            encryptedStr2 = encrypt(str(humidity))
+            print(encryptedStr2)
+            conn.send(encryptedStr.encode("UTF-8"))
             conn.send('\n'.encode("UTF-8"))
-            conn.send(encrypt(str(humidity)))
+            conn.send(encryptedStr2.encode("UTF-8"))
             conn.send('\n'.encode("UTF-8"))
             print(humidity)
             print(temperature)
