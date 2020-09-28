@@ -52,9 +52,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         count = 0
 
 
-        conn.send(encrypt(temperature))
+        conn.send(encrypt(temperature).encode("UTF-8"))
         conn.send('\n'.encode("UTF-8"))
-        conn.send(encrypt(humidity))
+        conn.send(encrypt(humidity).encode("UTF-8"))
         conn.send('\n'.encode("UTF-8"))
         print(humidity)
         print(temperature)
