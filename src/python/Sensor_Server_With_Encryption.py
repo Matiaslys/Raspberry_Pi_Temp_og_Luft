@@ -42,7 +42,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     conn, addr = s.accept()
 
     with conn:
-        obj = AES.new('This is a key123', AES.MODE_CFB, 'This is an IV456')
+        #obj = AES.new('This is a key123', AES.MODE_CFB, 'This is an IV456')
         humidity, temperature = Adafruit_DHT.read_retry(11, gpio)
         if humidity is not None and temperature is not None:
             print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity))
@@ -51,10 +51,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print('Connected by', addr)
         count = 0
 
-
-        conn.send(encrypt(temperature).encode("UTF-8"))
+        conn.send(encrypt(["temperature"]).encode("UTF-8"))
         conn.send('\n'.encode("UTF-8"))
-        conn.send(encrypt(humidity).encode("UTF-8"))
+        conn.send(encrypt(["humidity"]).encode("UTF-8"))
         conn.send('\n'.encode("UTF-8"))
         print(humidity)
         print(temperature)
