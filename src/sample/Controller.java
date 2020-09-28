@@ -6,7 +6,9 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 
+import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -34,7 +36,7 @@ public class Controller {
     private XYChart.Series<Number, Number> humChartSeries;
 
 
-    public void Chart(SensorData sensorData) throws IOException {
+    public void Chart(SensorData sensorData) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException {
         // laver 2 instancer af XYchart og giver dem data.
         tempChartSeries = new XYChart.Series<Number, Number>();
         humChartSeries = new XYChart.Series<Number, Number>();
