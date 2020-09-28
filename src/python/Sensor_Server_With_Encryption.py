@@ -18,7 +18,7 @@ def pad(byte_array):
 
 def encrypt(message):
 
-    byte_array = message.encode("UTF-8")
+    byte_array = str(message).encode("UTF-8")
 
     padded = pad(byte_array)
 
