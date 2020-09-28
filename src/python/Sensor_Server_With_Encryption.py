@@ -18,13 +18,12 @@ def pad(byte_array):
 
 def encrypt(message):
 
-    byte_array = (message).encode("UTF-8")
+    byte_array = message.encode("UTF-8")
 
     padded = pad(byte_array)
 
     obj = AES.new('This is a key123', AES.MODE_CBC, 'This is an IV456')
 
-    
    # humidity2 = str(humidity).encode("UTF-8")
    # temperature2 = str(temperature).encode("UTF-8")
 
@@ -67,9 +66,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             else:
                 print('Failed to get reading. Try again!')
             count += 1
-            conn.send(encrypt(temperature))
+            conn.send(encrypt(str(temperature)))
             conn.send('\n'.encode("UTF-8"))
-            conn.send(encrypt(humidity))
+            conn.send(encrypt(str(humidity)))
             conn.send('\n'.encode("UTF-8"))
             print(humidity)
             print(temperature)
