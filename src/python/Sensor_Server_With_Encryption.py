@@ -18,14 +18,14 @@ def pad(byte_array):
 
 def encrypt(message):
 
-    byte_array = str(message).encode("UTF-8")
+    byte_array = (message).encode("UTF-8")
 
     padded = pad(byte_array)
 
-    obj = AES.new('This is a key123', AES.MODE_CFB, 'This is an IV456')
+    obj = AES.new('This is a key123', AES.MODE_CBC, 'This is an IV456')
 
     
-  #  humidity2 = str(humidity).encode("UTF-8")
+   # humidity2 = str(humidity).encode("UTF-8")
    # temperature2 = str(temperature).encode("UTF-8")
 
     #padded = pad(humidity2)
