@@ -50,8 +50,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print('Failed to get reading. Try again!')
         print('Connected by', addr)
         count = 0
-
-        conn.send(encrypt(temperature.encode("UTF-8")))
+        encryptedStr = encrypt(temperature)
+        print(encryptedStr)
+        conn.send(encryptedStr.encode("UTF-8"))
         conn.send('\n'.encode("UTF-8"))
         conn.send(encrypt(humidity.encode("UTF-8")))
         conn.send('\n'.encode("UTF-8"))
